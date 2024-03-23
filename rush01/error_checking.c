@@ -14,6 +14,11 @@ void	print_error_message()
 	}
 }
 
+/*int		is_corner_valid(char *c, int i, int j)
+{
+
+}*/
+
 int		is_opposite_valid(char *c, int i, int j)
 {
 	while (i < j)
@@ -24,13 +29,20 @@ int		is_opposite_valid(char *c, int i, int j)
 		{
 			return (1);
 		}
-		if (c[i] == '4')
+		if (c[i] == '4' && i < j / 2)
 		{
-			if (c[i + 4] == '4' || c[i + 4] == '3' || c[i + 4] == '2')
-			{
-				return(1);
-			}
-		}	
+				if (c[i + 4] == '4' || c[i + 4] == '3' || c[i + 4] == '2')
+				{
+					return(1);
+				}
+		}
+		if (c[i] == '4' && i > j / 2)
+		{
+				if (c[i - 4] == '4' || c[i - 4] == '3' || c[i - 4] == '2')
+				{
+					return(1);
+				}
+		}
 		i++;
 	}
 	return (0);
@@ -86,7 +98,7 @@ void	check_is_valid(char *c)
 			//printf("error: here column or row\n");
 			print_error_message();
 		}
-		else if (is_opposite_valid(c, 8, 17) != 0)
+		else if (is_opposite_valid(c, 8, 16) != 0)
 		{
 			//printf("error: here column or row\n");
 			print_error_message();
@@ -123,6 +135,7 @@ int	main(int argc, char** argv)
 	else
 	{
 		split_string(argv[1], chars);
+		//printf("c[5] = %c\n", chars[5]);
 		check_is_valid(chars);
 	}
 }
