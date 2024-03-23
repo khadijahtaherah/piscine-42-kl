@@ -12,12 +12,12 @@ void dynamically_allocated_grid(char ***grid);
 void intialize_grid(char **grid);
 void print_grid(char **grid);
 void ft_putchar(char c);
-void  check_is_valid(char *c);
+int  check_is_valid(char *c);
 int		is_array_out_of_bound(char *c);
 int		is_specified_char(char *c);
 int		is_opposite_valid(char *c, int i, int j);
 int		is_corner_valid(char *c, int i);
-void	print_error_message();
+void	print_error_message(void);
 
 int	main(int argc, char** argv)
 {
@@ -32,11 +32,13 @@ int	main(int argc, char** argv)
 	else
 	{
 		split_string(argv[1], chars);
-		check_is_valid(chars);
+		if (check_is_valid(chars) == 0)
+    {
+      dynamically_allocated_grid(&grid);
+      intialize_grid(grid);
+      print_grid(grid);
+    }
 	}
-  dynamically_allocated_grid(&grid);
-  intialize_grid(grid);
-  print_grid(grid);
 	return (0);
 }
 
@@ -109,7 +111,7 @@ void print_grid(char **grid)
   }
 }
 
-void	check_is_valid(char *c)
+int	check_is_valid(char *c)
 {
 		if (is_array_out_of_bound(c) != 0)
 		{
@@ -131,6 +133,11 @@ void	check_is_valid(char *c)
 		{
 			print_error_message();
 		}
+    else
+    {
+      return (0);
+    }
+    return (1);
 }
 
 int		is_array_out_of_bound(char *c)
@@ -211,7 +218,7 @@ int		is_corner_valid(char *c, int i)
 	return (0);
 }
 
-void	print_error_message()
+void	print_error_message(void)
 {
 	char *error = "Error! Input is not valid\n";
 	int i;
