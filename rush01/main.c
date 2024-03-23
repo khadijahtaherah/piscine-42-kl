@@ -27,6 +27,7 @@ int	main(int argc, char** argv)
 	if (argc != 2)
 	{
 		print_error_message();
+    return (1);
 	}
 	else
 	{
@@ -174,11 +175,11 @@ int		is_opposite_valid(char *c, int i, int j)
 		}
 		if (c[i] == '4')
 		{
-				if ((i < j / 2 && (c[i + 4] == '4' || c[i + 4] == '3' || c[i + 4] == '2')) ||
-							(i >= j / 2 && (c[i - 4] == '4' || c[i - 4] == '3' || c[i - 4] == '2')))
-				{
-					return (1);
-				}
+			if ((i < j / 2 && (c[i + 4] == '4' || c[i + 4] == '3' || c[i + 4] == '2')) ||
+						(i >= j / 2 && (c[i - 4] == '4' || c[i - 4] == '3' || c[i - 4] == '2')))
+			{
+				return (1);
+			}
 		}
 		i++;
 	}
@@ -212,13 +213,13 @@ int		is_corner_valid(char *c, int i)
 
 void	print_error_message()
 {
-	char *error = "Sorry, input is not valid\n";
+	char *error = "Error! Input is not valid\n";
 	int i;
 
 	i = 0;
 	while (error[i] != '\0')
 	{
-		write(1, &error[i], 1);
+		ft_putchar(error[i]);
 		i++;
 	}
 }
