@@ -14,7 +14,7 @@ void	print_error_message()
 	}
 }
 
-int		is_column_row_valid(char *c, int i, int j)
+int		is_opposite_valid(char *c, int i, int j)
 {
 	while (i < j)
 	{
@@ -69,15 +69,8 @@ int		is_array_out_of_bound(char *c)
 	return (0);
 }
 
-void	check_is_valid(int argc, char *c)
+void	check_is_valid(char *c)
 {
-	if (argc > 2)
-	{
-		printf("argc > 2\n");
-		print_error_message();
-	}
-	else
-	{
 		if (is_array_out_of_bound(c) != 0)
 		{
 			//printf("error array out of bound\n");
@@ -88,30 +81,48 @@ void	check_is_valid(int argc, char *c)
 			//printf("error char not 1 2 3 4\n");
 			print_error_message();
 		}
-		else if (is_column_row_valid(c, 0, 8) != 0)
+		else if (is_opposite_valid(c, 0, 8) != 0)
 		{
 			//printf("error: here column or row\n");
 			print_error_message();
 		}
-		else if (is_column_row_valid(c, 8, 17) != 0)
+		else if (is_opposite_valid(c, 8, 17) != 0)
 		{
 			//printf("error: here column or row\n");
 			print_error_message();
 		}
+}
+
+void split_string(char *str, char *c)
+{
+	int i;
+	int j;
+
+	i = 0;
+	j = 0;
+	while (str[i] != '\0')
+	{
+		if (str[i] != ' ')
+		{
+			c[j] = str[i];
+			j++;
+		}	
+		i++;
 	}
+	c[j] = '\0';
 }
 
 int	main(int argc, char** argv)
 {
-	//char c[50] = {'4', '3', '2', '1', '1', '2', '2', '2', '4', '3', '2', '1', '1', '2', '2', '2'};
-	int i = 0;
+	char chars[50];
 
-	while (argv[1][i] != '\0')
+	if (argc != 2)
 	{
-		write(1, &argv[1][i], 1);
-		i++;
+		print_error_message();
 	}
-	write(1, "\n", 1);
-
-	check_is_valid(argc, argv[1]);
+	else
+	{
+		split_string(argv[1], chars);
+		check_is_valid(chars);
+	}
 }

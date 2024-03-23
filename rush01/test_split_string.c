@@ -25,7 +25,10 @@ int main(int argc, char** argv)
 {
 	int i;
 	char chars[17];
-	split_string(argv[1], chars);
+	if (argc == 2)
+	{
+		split_string(argv[1], chars);
+	}
 
 	i = 0;
 	while (chars[i] != '\0')
