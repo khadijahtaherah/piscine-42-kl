@@ -145,9 +145,15 @@ void	first_col(int j, char *row, char **grid)
 			{
 				grid[i][j] = '1';
 			}
-			grid[i][j + 1] = '2'; 
-			grid[i][j + 2] = '3';
-			grid[i][j + 3] = '4';
+			if (grid[i][j + 1] != '*' || grid[i][j + 2] != '*' || grid[i][j + 3] != '*')
+			{
+				//error
+			}
+			else{
+				grid[i][j + 1] = '2'; 
+				grid[i][j + 2] = '3';
+				grid[i][j + 3] = '4';
+			}
 		}
 		i++;
 	}
