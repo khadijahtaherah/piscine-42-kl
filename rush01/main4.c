@@ -139,9 +139,15 @@ void	first_col(int j, char *row, char **grid)
 		{
 			grid[i][j] = '4';
 		}
-		if (row[i] == '4' && grid[i][j] != '1')
+		if (row[i] == '4')
 		{
-			grid[i][j] = '1';
+			if (grid[i][j] != '1')
+			{
+				grid[i][j] = '1';
+			}
+			grid[i][j + 1] = '2'; 
+			grid[i][j + 2] = '3';
+			grid[i][j + 3] = '4';
 		}
 		i++;
 	}
@@ -158,9 +164,15 @@ void	last_col(int j, char *row, char **grid)
 		{
 			grid[i][j] = '4';
 		}
-		if (row[i] == '4' && grid[i][j] != '1')
+		if (row[i] == '4')
 		{
-			grid[i][j] = '1';
+			if (grid[i][j] != '1')
+			{
+				grid[i][j] = '1';
+			}
+			grid[i][j - 1] = '2'; 
+			grid[i][j - 2] = '3';
+			grid[i][j - 3] = '4';
 		}
 		i++;
 	}
