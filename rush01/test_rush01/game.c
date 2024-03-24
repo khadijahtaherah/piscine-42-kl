@@ -10,7 +10,9 @@
 /* Function prototype */
 void dynamically_allocated_grid(char ***grid);
 void intialize_grid(char **grid);
+void play_game(char **grid, char *chars);
 void print_grid(char **grid);
+void split_array(int index, int limit, char *str, char* chars);
 
 void dynamically_allocated_grid(char ***grid)
 {
@@ -42,6 +44,22 @@ void intialize_grid(char **grid)
     i++;
   }
 }
+
+void play_game(char **grid, char *chars)
+{
+  char col_up[COL + 1];
+  char col_down[COL + 1];
+  char row_left[ROW + 1];
+  char row_right[ROW + 1];
+
+  split_array(0, COL, chars, col_up);
+  split_array(4, COL, chars, col_down);
+  split_array(8, ROW, chars, row_left);
+  split_array(12, ROW, chars, row_right);
+  
+  print_grid(grid);
+}
+
 
 void print_grid(char **grid)
 {
