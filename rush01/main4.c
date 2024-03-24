@@ -74,7 +74,10 @@ void	first_row(int i, char *col, char **grid)
 		}
 		if (col[j] == '4')
 		{
-			grid[i][j] = '1';
+			grid[i][j] = '1';				//grid[0][j]
+			grid[i + 1][j] = '2';		//grid[1][j]
+			grid[i + 2][j] = '3';		//grid[2][j]
+			grid[i + 3][j] = '4';		//grid[3][j]
 		}
 		j++;
 	}
@@ -93,7 +96,10 @@ void	last_row(int i, char *col, char **grid)
 		}
 		if (col[j] == '4')
 		{
-			grid[i][j] = '1';
+			grid[i][j] = '1';				//grid[3][j]
+			grid[i - 1][j] = '2';		//grid[2][j]
+			grid[i - 2][j] = '2';		//grid[1][j]
+			grid[i - 3][j] = '2';		//grid[0][j]
 		}
 		j++;
 	}
