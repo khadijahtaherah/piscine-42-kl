@@ -1,64 +1,53 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include <unistd.h>
 
-void first_row(int i, char col[4], char grid[][4]);
-void last_row(int i, char col[4], char grid[][4]);
+#define ROW 4
+#define COL 4
 
-void print_grid(char grid[4][4]) {
-    int i;
-    int j;
-
-	i = 0;
-    while(i < 4)
-	{
-		j = 0;
-        while (j < 4)
-		{
-            write(1, &grid[i][j], 1);
-			j++;
-        }
-        write(1, "\n", 1);
-		i++;
-    }
-    write(1, "\n", 1);
-}
+void dynamically_allocated_grid(char ***grid);
+void intialize_grid(char **grid);
+void print_grid(char **grid);
+void free_memory(char **grid);
+void first_row(int i, char col[4], char **grid);
+void last_row(int i, char col[4], char **grid);
+void ft_putchar(char c);
 
 int main() {
-    int row = 4;
-    int col = 4;
-
-    char grid[row][col];
-
-    char colUp[4] = {'4', '3', '2', '1'};
-    char colDown[4] = {'1', '2', '2', '2'};
+    char **grid;
+		dynamically_allocated_grid(&grid);
+		intialize_grid(grid);
+		
+		
+    char col_up[4] = {'4', '3', '2', '1'};
+    char col_down[4] = {'1', '2', '2', '2'};
 //    char rowLeft[4] = {'4', '3', '2', '1'};
 //    char rowRight[4] = {'1', '2', '2', '2'};
 
     int i; 
-
     // Initialize grid
 	i = 0;
-	while (i < row)
-    {
+	while (i < ROW)
+  {
 		if (i == 0) // row 1
 		{
-			first_row(i, colUp, grid); 
+			first_row(i, col_up, grid); 
 		}
-		else if (i == row - 1)
+		else if (i == ROW - 1)
 		{
-			last_row(i, colDown, grid);
+			last_row(i, col_down, grid);
 		}
-		/*else
+		else
 		{
-			// iterate the rest
-		}*/
+			;// iterate the rest
+		}
 		i++;
 	}
-    print_grid(grid);
-    return 0;
+	print_grid(grid);
+  return 0;
 }
 
-void	first_row(int i, char col[4], char grid[][4])
+void	first_row(int i, char col[4], char **grid)
 {
 	int j;
 
@@ -69,19 +58,15 @@ void	first_row(int i, char col[4], char grid[][4])
 		{
 			grid[i][j] = '4';
 		}
-		else if (col[j] == '4')
+		if (col[j] == '4')
 		{
 			grid[i][j] = '1';
-		}
-		else
-		{
-			grid[i][j] = '*';
 		}
 		j++;
 	}
 }
 
-void	last_row(int i, char col[4], char grid[][4])
+void	last_row(int i, char col[4], char **grid)
 {
 	int j;
 
@@ -92,15 +77,79 @@ void	last_row(int i, char col[4], char grid[][4])
 		{
 			grid[i][j] = '4';
 		}
-		else if (col[j] == '4')
+		if (col[j] == '4')
 		{
 			grid[i][j] = '1';
-			grid[i][j + 1] = '2';
-		}
-		else
-		{
-			grid[i][j] = '*';
 		}
 		j++;
 	}
+}
+
+void dynamically_allocated_grid(char ***grid)
+{
+  int i;
+
+  i = 0;
+  *grid = (char**)malloc(ROW * sizeof(char *));
+  while (i < ROW)
+  {
+    (*grid)[i] = (char*)malloc(COL * sizeof(char));
+    i++;
+  }
+}
+
+void intialize_grid(char **grid)
+{
+  int i;
+  int j;
+  
+  i = 0;
+  while (i < ROW)
+  {
+    j = 0;
+    while (j < COL)
+    {
+      grid[i][j] = '*';
+      j++;
+    }
+    i++;
+  }
+}
+
+void print_grid(char **grid)
+{
+  int i;
+  int j;
+  
+  i = 0;
+  while (i < ROW)
+  {
+    j = 0;
+    while (j < COL)
+    {
+      ft_putchar(grid[i][j]);
+      j++;
+    }
+    ft_putchar('\n');
+    i++;
+  }
+	free_memory(grid);
+}
+
+void free_memory(char **grid)
+{
+	int i;
+  
+  i = 0;
+  while (i < ROW)
+  {
+		free(grid[i]);
+    i++;
+  }
+	free(grid);
+}
+
+void  ft_putchar(char c)
+{
+  write(1, &c, 1);
 }
