@@ -7,25 +7,41 @@
 
 void dynamically_allocated_grid(char ***grid);
 void intialize_grid(char **grid);
+void play_game(char **grid);
+void set_col_one_four(char *col_up, char *col_down, char **grid);
+void first_row(int i, char *col, char **grid);
+void last_row(int i, char *col, char **grid);
+void set_row_one_four(char *row_left, char *row_right, char **grid);
+void	first_col(int j, char *row, char **grid);
+void	last_col(int j, char *row, char **grid);
 void print_grid(char **grid);
 void free_memory(char **grid);
-void first_row(int i, char col[4], char **grid);
-void last_row(int i, char col[4], char **grid);
 void ft_putchar(char c);
 
-int main() {
-    char **grid;
-		dynamically_allocated_grid(&grid);
-		intialize_grid(grid);
-		
-		
-    char col_up[4] = {'4', '3', '2', '1'};
-    char col_down[4] = {'1', '2', '2', '2'};
-//    char rowLeft[4] = {'4', '3', '2', '1'};
-//    char rowRight[4] = {'1', '2', '2', '2'};
+int main()
+{
+  char **grid;
+	dynamically_allocated_grid(&grid);
+	intialize_grid(grid);
+	play_game(grid);
+  return 0;
+}
 
-    int i; 
-    // Initialize grid
+void play_game(char **grid)
+{
+	char *col_up = "4321";
+  char *col_down = "1222";
+	char *row_left = "4321";
+	char *row_right = "1222";
+	set_col_one_four(col_up, col_down, grid);
+	set_row_one_four(row_left, row_right, grid);
+	print_grid(grid);
+}
+
+void set_col_one_four(char *col_up, char *col_down, char **grid)
+{
+  int i; 
+  
 	i = 0;
 	while (i < ROW)
   {
@@ -43,16 +59,14 @@ int main() {
 		}
 		i++;
 	}
-	print_grid(grid);
-  return 0;
 }
 
-void	first_row(int i, char col[4], char **grid)
+void	first_row(int i, char *col, char **grid)
 {
 	int j;
 
 	j = 0;
-	while (j < 4)
+	while (j < COL)
 	{
 		if (col[j] == '1')
 		{
@@ -66,12 +80,12 @@ void	first_row(int i, char col[4], char **grid)
 	}
 }
 
-void	last_row(int i, char col[4], char **grid)
+void	last_row(int i, char *col, char **grid)
 {
 	int j;
 
 	j = 0;
-	while(j < 4)
+	while(j < COL)
 	{
 		if (col[j] == '1')
 		{
@@ -82,6 +96,67 @@ void	last_row(int i, char col[4], char **grid)
 			grid[i][j] = '1';
 		}
 		j++;
+	}
+}
+
+void set_row_one_four(char *row_left, char *row_right, char **grid)
+{
+  int j; 
+  
+	j = 0;
+	while (j < COL)
+  {
+		if (j == 0) // col 1
+		{
+			first_col(j, row_left, grid); 
+		}
+		else if (j == COL - 1) // last col
+		{
+			last_col(j, row_right, grid);
+		}
+		else
+		{
+			;// iterate the rest
+		}
+		j++;
+	}
+}
+
+void	first_col(int j, char *row, char **grid)
+{
+	int i;
+
+	i = 0;
+	while (i < ROW)
+	{
+		if (row[i] == '1' && grid[i][j] != '4')
+		{
+			grid[i][j] = '4';
+		}
+		if (row[i] == '4' && grid[i][j] != '1')
+		{
+			grid[i][j] = '1';
+		}
+		i++;
+	}
+}
+
+void	last_col(int j, char *row, char **grid)
+{
+	int i;
+
+	i = 0;
+	while (i < ROW)
+	{
+		if (row[i] == '1' && grid[i][j] != '4')
+		{
+			grid[i][j] = '4';
+		}
+		if (row[i] == '4' && grid[i][j] != '1')
+		{
+			grid[i][j] = '1';
+		}
+		i++;
 	}
 }
 
