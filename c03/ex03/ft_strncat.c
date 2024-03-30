@@ -30,6 +30,6 @@ int	main(void)
    	ft_strncat(dest, src, 20);
 
 	printf("result: %s\n", dest);
-	return (0);
+	return 0;
 }
 */
