@@ -29,7 +29,7 @@ char    *ft_strstr(char *str, char *to_find)
 
 int main(void)
 {
-    char *str = "I am your father 123 luke";
+    char *str = "I am your fath";
     char *to_find = "father";
     char *result;
     char *result2;
